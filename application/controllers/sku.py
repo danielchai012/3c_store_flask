@@ -8,7 +8,7 @@ from application.models.sku import Sku
 #from application.models.product import Product
 #from application.models.transaction import Transaction, ReStock, ReStockDetail
 
-class SkuAPI(Resource):
+class SkuCTRL(Resource):
     LIST_URL = '/sku/<date>'
 
     def get(self, date):
