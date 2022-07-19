@@ -42,17 +42,17 @@ member_api.add_resource(
 )
 
 product_api.add_resource(
-    ProductAPI,
-    ProductAPI.LIST_URL
+    ProductCTRL,
+    ProductCTRL.LIST_URL
 )
 
 product_api.add_resource(
-    AddProduct,
-    AddProduct.LIST_URL
+    AddProductCTRL,
+    AddProductCTRL.LIST_URL
 )
 
 product_api.add_resource(
-    ProductsList,
-    ProductsList.LIST_URL
+    ProductsListCTRL,
+    ProductsListCTRL.LIST_URL
 )
 

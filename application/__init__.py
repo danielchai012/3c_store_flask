@@ -1,7 +1,6 @@
 from flask import Flask
 from sku import *
 from application.controllers import *
-from member import *
 
 #建立Flask APP
 def create_app(config_filename):

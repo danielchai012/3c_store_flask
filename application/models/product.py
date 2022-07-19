@@ -9,8 +9,8 @@ class Product(db.Model):
     product_name = db.Column(db.String(100), nullable=True)
     product_model = db.Column(db.String(30), nullable=True)
     brand_id = db.Column(db.String(5), db.ForeignKey('brand.brand_id'), nullable=True)
-    category_id = db.Column(db.Integer, nullable=True)
-    supplier_id = db.Column(db.Integer, nullable=True)
+    category_id = db.Column(db.Integer,db.ForeignKey('category.category_id'), nullable=True)
+    supplier_id = db.Column(db.Integer, db.ForeignKey('supplier.supplier_id'),nullable=True)
     create_time = db.Column(db.DateTime(), nullable=True)
     details = db.Column(db.String(500), nullable=True)
 

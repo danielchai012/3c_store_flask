@@ -10,6 +10,8 @@ class Category(db.Model):
     category_level = db.Column(db.Integer, nullable=False)
     parent_id = db.Column(db.Integer, nullable=False)
 
+    db_cater_product = db.relationship("Product", backref="category")
+
     def to_json(self):
         json = {
             'category_id': self.category_id,

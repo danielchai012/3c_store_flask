@@ -83,5 +83,36 @@ class Supplier(db.Model):
     contact_num = db.Column(db.String(10), nullable=False)
     create_time = db.Column(db.DateTime(), nullable=False)
     last_instock_time = db.Column(db.DateTime(), nullable=False)
-    
-    db_supp_product = db.relationship("Product", backref="supplier")
+
+# class ReStockDetail(db.Model):
+#     __tablename__ = 'restock_detail'
+#     __table_args__ = {'mysql_charset': 'utf8mb4'}
+
+#     restock_id = db.Column(db.String(36), primary_key=True)
+#     sku_id = db.Column(db.String(11), primary_key=True, nullable=False)
+#     serial_id = db.Column(db.String(128), nullable=True)
+#     sale_price = db.Column(db.Integer, nullable=False)
+#     quantity = db.Column(db.Integer, nullable=False)
+#     memo = db.Column(db.String(300), nullable=True)
+
+#     @classmethod 
+#     def create(cls, restock_id, sku_id, serial_id, sale_price, quantity, memo):
+#         restock_detail = ReStockDetail()
+#         restock_detail.restock_id = restock_id
+#         restock_detail.sku_id = sku_id
+#         restock_detail.serial_id = serial_id
+#         restock_detail.sale_price = sale_price
+#         restock_detail.quantity = quantity
+#         restock_detail.memo = memo
+#         return restock_detail
+
+#     def to_json(self):
+#         json = {
+#             'restock_id': self.restock_id,
+#             'sku_id': self.sku_id,
+#             'serial_id': self.serial_id,
+#             'sale_price': self.sale_price,
+#             'quantity': self.sale_quantity,
+#             'memo': self.memo
+#         }
+#         return json
