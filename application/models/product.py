@@ -37,3 +37,15 @@ class Product(db.Model):
             'details': self.details
         }
         return json
+    
+    # 取得該類最新產品 
+    def getThisCategory_LastP(self,catergory_id):
+        lastP=db.session.query(self).filter_by(category_id=catergory_id).order_by(Product.product_id.desc()).first()
+        return lastP
+
+    # 取得該類產品新id 
+    def getThisCategory_NewP_id(self,catergory_id):
+        lastP_id=self.getThisCategory_LastP(self,catergory_id)
+        lastest_id_cater = lastP_id.product_id[0:2]
+        lastest_id = lastP_id.product_id[2:8]
+        return lastest_id_cater+str(int(lastest_id) +1).zfill(6)

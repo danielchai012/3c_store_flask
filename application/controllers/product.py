@@ -120,12 +120,13 @@ class AddProductController(Resource):
          # 新增一筆產品資料
         try:
             arg =self.parser.parse_args()
-            print(arg["product_name"],arg["product_model"],arg["brand_id"],arg["category_id"],arg["supplier_id"],arg["details"])
-            # Product.query.filter_by(category_id=arg["category_id"]).order_by(Product.product_id.desc()).all()
-            product_add = Product('SP000012',f'{arg["product_name"]}',f'{arg["product_model"]}','B0002',1,4,'2022/01/01 20:37:21',arg["details"])
+            # print(arg["product_name"],arg["product_model"],arg["brand_id"],arg["category_id"],arg["supplier_id"],arg["details"])
+            print(Product.getThisCategory_LastP(Product,arg["category_id"]).product_id)
+            new_P_id = Product.getThisCategory_NewP_id(Product,arg["category_id"])
+            product_add = Product(new_P_id,f'{arg["product_name"]}',f'{arg["product_model"]}','B0002',1,4,'2022/01/01 20:37:21',arg["details"])
             db.session.add(product_add)
             db.session.commit()
-            # return {'message':f'insert {product_add}success'},200
+            return {'message':f'insert {product_add}success'},200
             return {'message':f'insert {arg["product_name"],arg["product_model"],arg["brand_id"],arg["category_id"],arg["supplier_id"],arg["details"]} success'},200
         except Exception as e:
             print (e)
@@ -140,7 +141,9 @@ class AddProductController(Resource):
 
     def delete(self):
         # 刪除資料
-        query = Product.query.filter_by(product_id='SP000012').first()
+        arg =self.parser.parse_args()
+        last_p_id=Product.getThisCategory_LastP(Product,arg["category_id"]).product_id
+        query = Product.query.filter_by(product_id=last_p_id).first()
         db.session.delete(query)
         db.session.commit()
         return 
