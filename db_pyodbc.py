@@ -1,6 +1,6 @@
 import pyodbc
 
-server = 'localhost'
+server = '192.168.62.47'
 database = 'pos'
 username = 'itm'
 password = 'itm123'

@@ -16,8 +16,8 @@ class Sku(db.Model):
     update_time = db.Column(db.DateTime(), nullable=False)
     #memo = db.Column(db.String(80), nullable=True)
 
-    def to_json(self):
-        json = {
+    def to_data(self):
+        data = {
             'sku_id': self.sku_id,
             'product_id': self.product_id,
             'sku_code': self.sku_code,
@@ -30,4 +30,4 @@ class Sku(db.Model):
             #'memo': self.memo
 
         }
-        return json
+        return data
