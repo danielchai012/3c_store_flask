@@ -4,6 +4,7 @@ from flask_restful import Api
 from .transaction import *
 from .member import *
 from .product import *
+from .sku import *
 
 transaction_bp = Blueprint('transaction', __name__)
 member_bp = Blueprint('member', __name__)
@@ -13,46 +14,51 @@ sku_bp = Blueprint('sku', __name__)
 product_api = Api(product_bp)
 transaction_api = Api(transaction_bp)
 member_api = Api(member_bp)
+sku_api = Api(sku_bp)
 
 transaction_api.add_resource(
-    RestockCTRL,
-    RestockCTRL.LIST_URL,
-    RestockCTRL.CREATE_URL
+    RestockController,
+    RestockController.LIST_URL,
+    RestockController.CREATE_URL
 )
 transaction_api.add_resource(
-    RestockDataCTRL,
-    RestockDataCTRL.LIST_URL,
-    RestockDataCTRL.CREATE_URL
+    RestockDataController,
+    RestockDataController.LIST_URL,
+    RestockDataController.CREATE_URL
 )
 transaction_api.add_resource(
-    TransactionCTRL,
-    TransactionCTRL.LIST_URL,
-    TransactionCTRL.CREATE_URL
+    TransactionController,
+    TransactionController.LIST_URL,
+    TransactionController.CREATE_URL
 )
 
 member_api.add_resource(
-    CustomerCTRL,
-    CustomerCTRL.LIST_URL,
-    CustomerCTRL.CREATE_URL
+    CustomerController,
+    CustomerController.LIST_URL,
+    CustomerController.CREATE_URL
 )
 member_api.add_resource(
-    EmployeeCTRL,
-    EmployeeCTRL.LIST_URL,
-    EmployeeCTRL.CREATE_URL
+    EmployeeController,
+    EmployeeController.LIST_URL,
+    EmployeeController.CREATE_URL
 )
 
 product_api.add_resource(
-    ProductCTRL,
-    ProductCTRL.LIST_URL
+    ProductController,
+    ProductController.LIST_URL
 )
 
 product_api.add_resource(
-    AddProductCTRL,
-    AddProductCTRL.LIST_URL
+    AddProductController,
+    AddProductController.LIST_URL
 )
 
 product_api.add_resource(
-    ProductsListCTRL,
-    ProductsListCTRL.LIST_URL
+    ProductsListController,
+    ProductsListController.LIST_URL
 )
 
+sku_api.add_resource(
+    SkuController,
+    SkuController.LIST_URL
+)

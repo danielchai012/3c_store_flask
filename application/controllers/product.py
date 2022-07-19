@@ -10,7 +10,7 @@ from ..models.brand import Brand
 from ..models.category import Category
 from ..models.member import Supplier
 
-class ProductCTRL(Resource):
+class ProductController(Resource):
 
     LIST_URL= '/product/<brand_id>'
     parser = reqparse.RequestParser()
@@ -52,7 +52,7 @@ class ProductCTRL(Resource):
         return 
 
 
-class ProductsListCTRL(Resource):
+class ProductsListController(Resource):
     LIST_URL='/products/'
     parser = reqparse.RequestParser()
     parser.add_argument('product_name', required=True, help='Product Name is required',location=['form'])
@@ -82,7 +82,7 @@ class ProductsListCTRL(Resource):
             return {"error message":f'{e}'}
 
 
-class AddProductCTRL(Resource):
+class AddProductController(Resource):
 
     LIST_URL= '/addproduct/'
     parser = reqparse.RequestParser()
