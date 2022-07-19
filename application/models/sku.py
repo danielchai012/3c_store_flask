@@ -14,8 +14,9 @@ class Sku(db.Model):
     stock_quantity = db.Column(db.Integer, nullable=False)
     create_time = db.Column(db.DateTime(), nullable=False)
     update_time = db.Column(db.DateTime(), nullable=False)
-    #memo = db.Column(db.String(80), nullable=True)
+    memo = db.Column(db.String(200), nullable=True)
 
+    @classmethod
     def to_json(self):
         json = {
             'sku_id': self.sku_id,
@@ -27,7 +28,7 @@ class Sku(db.Model):
             'stock_quantity': self.stock_quantity,
             'create_time': self.create_time.strftime("%m/%d/%Y, %H:%M:%S"),
             'update_time': self.update_time.strftime("%m/%d/%Y, %H:%M:%S"),
-            #'memo': self.memo
+            'memo': self.memo
 
         }
         return json
