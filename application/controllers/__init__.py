@@ -45,7 +45,9 @@ member_api.add_resource(
 
 product_api.add_resource(
     ProductController,
-    ProductController.LIST_URL
+    ProductController.LIST_URL,
+    ProductController.CREATE_URL
+    
 )
 
 product_api.add_resource(
