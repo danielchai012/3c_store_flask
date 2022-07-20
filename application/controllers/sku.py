@@ -10,13 +10,16 @@ from application.models.sku import Sku
 
 class SkuController(Resource):
     LIST_URL = '/sku/<date>'
+    CREATE_URL = '/sku'
 
-    def get(self, date):
+    def get(self, sku_id):
         parser = reqparse.RequestParser()
-        parser.add_argument('sku_id', type=str,required=True)
-        parser.add_argument('chkstaff_id',type=str,required=True)
+        parser.add_argument('sku_id', type=str,required=True, location=['form'])
+        parser.add_argument('chkstaff_id',type=str,required=True, location=['form'])
 
-        sku = db.session.query(Sku).all()
+        sku = db.session.query(Sku).filter(
+            Sku.sku_id == (sku_id if(sku_id!='all') else Sku.sku_id)
+        ).all()
 
         if not sku:
             return{'message':'No stock record could be found'}
@@ -29,9 +32,9 @@ class SkuController(Resource):
     
     def post(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('sku_id', type=str,required=True)
-        parser.add_argument('chkstaff_id',type=str,required=True)
-        parser.add_argument('chk_date', type=datetime, required=True)
+        parser.add_argument('sku_id', type=str,required=True, location=['form'])
+        parser.add_argument('chkstaff_id',type=str,required=True, location=['form'])
+        parser.add_argument('chk_date', type=datetime, required=True, location=['form'])
         req_data = parser.parse_args()
         print(req_data)
         sku = Sku.create(
@@ -44,7 +47,7 @@ class SkuController(Resource):
 
     def put(self, sku_id):
         parser = reqparse.RequestParser()
-        parser.add_argument('chk_amount', type=int, required=True)
+        parser.add_argument('chk_amount', type=int, required=True, location=['form'])
         req_data = parser.parse_args()
 
         sku = db.session.query(Sku).filter(
@@ -66,6 +69,6 @@ class SkuController(Resource):
         if not sku:
             return{'message:'f'{sku_id}此sku_id不存在'}
 
-        db.session.add(sku)
+        db.session.delete(sku)
         db.session.commit()    
         return 
