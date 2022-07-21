@@ -9,7 +9,6 @@ from application.orm.product import ProductORM
 import datetime
 
 class Product(db.Model):
-
     
     def to_json(self):
         json = {
@@ -121,38 +120,28 @@ class Product(db.Model):
             }
         }
         return pAdd_list_json
-
+    def update(self, update_dictionary: dict):
+                    for col_name in self.__table__.columns.keys():
+                        if col_name in update_dictionary:
+                            setattr(self, col_name, update_dictionary[col_name])
     #更新產品
     def UpdateProductInfo(product_id,update_data):
         try:
             product = ProductORM.query.filter_by(product_id=product_id).first()
+            print(update_data)
             update_message= []
-            for data in update_data:
-                print( data[0],data[1])
-                if data[0]== "product_name":
-                    product.product_name = data[1]
-                    update_message.append(f"{data[0],data[1]} is updated")
-                elif data[0]== "product_model":
-                    product.product_model = data[1]
-                    update_message.append(f"{data[0],data[1]} is updated")
-                elif data[0]== "brand_id":
-                    product.brand_id = data[1]
-                    update_message.append(f"{data[0],data[1]} is updated")
-                elif data[0]== "category_id":
-                    product.category_id = data[1]
-                    update_message.append(f"{data[0],data[1]} is updated")
-                elif data[0]== "supplier_id":
-                    product.supplier_id = data[1]
-                    update_message.append(f"{data[0],data[1]} is updated")
-                elif data[0]== "details":
-                    product.details = data[1]
-                    update_message.append(f"{data[0],data[1]} is updated")
-                else: 
-                    update_message.append(f"{data[0]} not a proper key")
+            for col_name in product.__table__.columns.keys():
+                if col_name in update_data:
+                    if(update_data[col_name]!= None):
+                        setattr(product, col_name, update_data[col_name])
+                        update_message.append(f'{col_name,update_data[col_name]} is updated')
+                    else:
+                        update_message.append(f"{col_name} not a proper key")
             db.session.commit()
             update_message = ' '.join(update_message)
-            return update_message
+            return {'message':f"update {update_message}success"}
         except Exception as e:
+            print(e)
             return {'message':"update error"}
     
     #刪除產品byid
