@@ -79,7 +79,7 @@ class SkuDataController(Resource):
      def get(self, sku_id):
             sku = db.session.query(
                                 Sku.sku_id,
-                                Product.product_name,
+                                Product.product_id,
                                 Sku.sku_code,
                                 Sku.sell_price,
                                 Sku.recom_price,
@@ -89,8 +89,6 @@ class SkuDataController(Resource):
                                 Product,
                                 Sku.product_id == Product.product_id,
                                 isouter = True
-                            ).filter(
-                                Sku.sku_id == sku_id 
                             ).all()
             sku_json = {
             'data': [{   
