@@ -163,4 +163,5 @@ class Product(db.Model):
             db.session.commit()
             return {'message': f'delete product {product_id} success'}  
         except Exception as e:
-            return {'message': f'delete product {product_id} failed,請檢查產品是否存在'}
+            print(e)
+            return {'message': f'delete product {product_id} failed,請檢查產品是否存在{e}'}
