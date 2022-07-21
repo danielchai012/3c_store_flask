@@ -65,3 +65,9 @@ sku_api.add_resource(
     SkuController.LIST_URL,
     SkuController.CREATE_URL
 )
+
+sku_api.add_resource(
+    SkuDataController,
+    SkuDataController.LIST_URL,
+    SkuDataController.CREATE_URL
+)

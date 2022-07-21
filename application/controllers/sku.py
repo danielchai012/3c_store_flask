@@ -1,15 +1,14 @@
-import datetime
+from datetime import datetime
 from html import parser
 from lib2to3.pgen2.parse import Parser
 from urllib import response
 from flask_restful import Resource, reqparse
 from db import db
 from application.models.sku import Sku
-#from application.models.product import Product
-#from application.models.transaction import Transaction, ReStock, ReStockDetail
+from application.models.product import Product
 
 class SkuController(Resource):
-    LIST_URL = '/sku/<date>'
+    LIST_URL = '/sku/<sku_id>'
     CREATE_URL = '/sku'
 
     def get(self, sku_id):
@@ -25,7 +24,7 @@ class SkuController(Resource):
             return{'message':'No stock record could be found'}
 
         sku_json = {
-            'sku': [record.to_json() for record in sku]
+            'sku': [record.to_sku_json() for record in sku]
         } 
       
         return sku_json
@@ -72,3 +71,39 @@ class SkuController(Resource):
         db.session.delete(sku)
         db.session.commit()    
         return 
+
+class SkuDataController(Resource):
+     LIST_URL = '/sku_data/<sku_id>'
+     CREATE_URL = '/sku_data'
+
+     def get(self, sku_id):
+            sku = db.session.query(
+                                Sku.sku_id,
+                                Product.product_name,
+                                Sku.sku_code,
+                                Sku.sell_price,
+                                Sku.recom_price,
+                                Sku.cost,
+                                Sku.stock_quantity
+                            ).join(
+                                Product,
+                                Sku.product_id == Product.product_id,
+                                isouter = True
+                            ).filter(
+                                Sku.sku_id == sku_id 
+                            ).all()
+            sku_json = {
+            'data': [{   
+                        'sku_id': record[0],
+                        'product_id': record[1],
+                        'sku_code': record[2],
+                        'sell_price': record[3],
+                        'recom_price': record[4],
+                        'cost': record[5],
+                        'stock_quantity': record[6],
+                    } for record in sku],
+            'title': 'sku_data'
+            } 
+            return  sku_json                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+        
+
