@@ -4,11 +4,6 @@ from ..models.product import Product
 from flask import abort
 import traceback,sys
 def abort_msg(e):
-    """500 bad request for exception
-
-    Returns:
-        500 and msg which caused problems
-    """
     error_class = e.__class__.__name__ # 引發錯誤的 class
     detail = e.args[0] # 得到詳細的訊息
     cl, exc, tb = sys.exc_info() # 得到錯誤的完整資訊 Call Stack

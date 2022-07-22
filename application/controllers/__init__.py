@@ -6,10 +6,10 @@ from .member import *
 from .product import *
 from .sku import *
 
-transaction_bp = Blueprint('transaction', __name__)
-member_bp = Blueprint('member', __name__)
-product_bp = Blueprint('product', __name__)
-sku_bp = Blueprint('sku', __name__)
+transaction_bp = Blueprint('transaction', __name__, url_prefix="/3c_store/api/v1"+"/transaction")
+member_bp = Blueprint('member', __name__, url_prefix="/3c_store/api/v1"+"/member")
+product_bp = Blueprint('product', __name__, url_prefix="/3c_store/api/v1"+"/product")
+sku_bp = Blueprint('sku', __name__, url_prefix="/3c_store/api/v1"+"/sku")
 
 product_api = Api(product_bp)
 transaction_api = Api(transaction_bp)

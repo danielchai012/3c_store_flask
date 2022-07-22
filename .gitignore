@@ -10,3 +10,6 @@ Pipfile.lock
 **/__pycache__
 **/test_api
 **/test_tb
+db_pyodbc.py
+**/db.py
+**/local.py
